@@ -1,8 +1,8 @@
--- {"id":2,"ver":"3.1.0","libVer":"1.0.0","author":"Doomsdayrs","dep":["Madara>=2.2.0"]}
+-- {"id":2,"ver":"3.2.0","libVer":"1.0.0","author":"Doomsdayrs","dep":["Madara>=2.2.0"]}
 
-return Require("Madara")("https://boxnovel.com", {
+return Require("Madara")("https://novgo.co", {
 	id = 2,
-	name = "BoxNovel",
+	name = "Novgo (Boxnovel)",
 	imageURL = "https://github.com/shosetsuorg/extensions/raw/dev/icons/BoxNovel.png",
 
 	genres = {
