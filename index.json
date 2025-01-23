@@ -607,6 +607,16 @@
       "ver": "1.1.0",
       "libVer": "1.0.0",
       "md5": ""
+    },
+    {
+      "name": "Shanghai Fantasy",
+      "fileName": "Shanghaifantasy",
+      "imageURL": "https://shanghaifantasy.com/wp-content/uploads/2021/08/cropped-Showing-3-270x270.png",
+      "id": 96601,
+      "lang": "en",
+      "ver": "1.0.0",
+      "libVer": "1.0.0",
+      "md5": ""
     }
   ]
 }
