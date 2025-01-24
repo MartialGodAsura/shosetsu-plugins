@@ -1,4 +1,4 @@
--- {"id":95564,"ver":"1.0.7","libVer":"1.0.0","author":"Confident-hate"}
+-- {"id":95564,"ver":"1.0.8","libVer":"1.0.0","author":"Confident-hate"}
 
 local baseURL = "https://novelbin.com"
 
@@ -21,7 +21,7 @@ local function expandURL(url)
 end
 
 local GENRE_FILTER = 2
-local GENRE_PARAMS = { 
+local GENRE_PARAMS = {
     "",
     "/genre/action",
     "/genre/adult",
@@ -150,20 +150,20 @@ local function getPassage(chapterURL)
     htmlElement:traverse(NodeVisitor(function(v)
         if v:tagName() == "p" then
             if v:text() == "" then
-                toRemove[#toRemove+1] = v
+                toRemove[#toRemove + 1] = v
             else
                 local textContent = v:text()
                 v:text(textContent:gsub("<", "&lt;"):gsub(">", "&gt;"))
             end
         end
     end, nil, true))
-    for _,v in pairs(toRemove) do
+    for _, v in pairs(toRemove) do
         v:remove()
     end
     local ht = "<h1>" .. title .. "</h1>"
     local pTagList = ""
     pTagList = map(htmlElement:select("p"), text)
-    for k,v in pairs(pTagList) do ht = ht .. "<br><br>" .. v end
+    for k, v in pairs(pTagList) do ht = ht .. "<br><br>" .. v end
     return pageOfElem(Document(ht), true)
 end
 
@@ -190,10 +190,10 @@ local function parseNovel(novelURL)
     -- using https://novelbin.com/ to get chapter list resulting in randomized base URL for each chapter
     -- for now using https://novelusb.com/ seems to give consistent result.
     -- TODO: to properly fix it maybe do these:
-    -- 1. get first chapter URL, remove last part of url and store it as base chapter url.    
-    -- 2. only store last part of the url as link for all chapters  
+    -- 1. get first chapter URL, remove last part of url and store it as base chapter url.
+    -- 2. only store last part of the url as link for all chapters
     -- 3. on getPassage function, append the base chapter url to each chapter link
-    
+
     -- novelusb is now having cloudflare protection or so it seems in my device/ISP which is causing error 403.
     -- for now, using novelin to get chapters.
     local chapterURL = "https://novelbin.com/ajax/chapter-archive?novelId=" .. chID
@@ -206,16 +206,22 @@ local function parseNovel(novelURL)
             Ongoing = NovelStatus.PUBLISHING,
             Completed = NovelStatus.COMPLETED,
         })[document:selectFirst(".info .text-primary"):text()],
-        authors = { document:selectFirst(".info > li:nth-child(1)"):text()},
-        genres = map(document:select(".info > li:nth-child(2) a"), text ),
+        authors = { document:selectFirst(".info > li:nth-child(1)"):text() },
+        genres = map(document:select(".info > li:nth-child(2) a"), text),
         chapters = AsList(
-                map(chapterDoc:select(".list-chapter li a"), function(v)
-                    return NovelChapter {
-                        order = v,
-                        title = v:attr("title"),
-                        link = v:attr("href")
-                    }
-                end)
+            map(chapterDoc:select(".list-chapter li a"), function(v)
+                local titleElement = v:selectFirst(".nchr-text.chapter-title")
+                if titleElement then
+                    local premiumLabel = titleElement:selectFirst(".premium-label")
+                    if not premiumLabel then
+                        return NovelChapter {
+                            order = v,
+                            title = v:attr("title"),
+                            link = v:attr("href")
+                        }
+                    end
+                end
+            end)
         )
     }
 end
@@ -239,7 +245,7 @@ local function getListing(name, inc, sortString)
         local page = data[PAGE]
         local genreValue = ""
         if genre ~= nil then
-            genreValue = GENRE_PARAMS[genre+1]
+            genreValue = GENRE_PARAMS[genre + 1]
         end
         local url = baseURL .. genreValue .. "?page=" .. page
         if genreValue == "" then
