@@ -1,4 +1,4 @@
--- {"id":95564,"ver":"1.0.6","libVer":"1.0.0","author":"Confident-hate"}
+-- {"id":95564,"ver":"1.0.7","libVer":"1.0.0","author":"Confident-hate"}
 
 local baseURL = "https://novelbin.com"
 
@@ -184,7 +184,7 @@ end
 --- @param novelURL string @URL of novel
 --- @return NovelInfo
 local function parseNovel(novelURL)
-    local url = baseURL .. "/" .. novelURL
+    local url = expandURL(novelURL)
     local document = GETDocument(url)
     local chID = string.match(url, ".*/([^/]+)$")
     -- using https://novelbin.com/ to get chapter list resulting in randomized base URL for each chapter
@@ -192,8 +192,11 @@ local function parseNovel(novelURL)
     -- TODO: to properly fix it maybe do these:
     -- 1. get first chapter URL, remove last part of url and store it as base chapter url.    
     -- 2. only store last part of the url as link for all chapters  
-    -- 3. on getPassage function, append the base chapter url to each chapter link  
-    local chapterURL = "https://novelusb.com/ajax/chapter-archive?novelId=" .. chID
+    -- 3. on getPassage function, append the base chapter url to each chapter link
+    
+    -- novelusb is now having cloudflare protection or so it seems in my device/ISP which is causing error 403.
+    -- for now, using novelin to get chapters.
+    local chapterURL = "https://novelbin.com/ajax/chapter-archive?novelId=" .. chID
     local chapterDoc = GETDocument(chapterURL)
     return NovelInfo {
         title = document:selectFirst(".title"):text(),
@@ -203,6 +206,8 @@ local function parseNovel(novelURL)
             Ongoing = NovelStatus.PUBLISHING,
             Completed = NovelStatus.COMPLETED,
         })[document:selectFirst(".info .text-primary"):text()],
+        authors = { document:selectFirst(".info > li:nth-child(1)"):text()},
+        genres = map(document:select(".info > li:nth-child(2) a"), text ),
         chapters = AsList(
                 map(chapterDoc:select(".list-chapter li a"), function(v)
                     return NovelChapter {
