@@ -15,16 +15,19 @@ image: openjdk:11
 stages:
   - validate
   - test
+  - deploy
 
 before_script:
-  - export BIN=bin/
-  - export FILES=`git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA | grep .lua | tr -d '\012\015'`
-# TODO Figure out how to select extension
+  - if [ -z "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]
+  - then export FILES=($(git diff-tree --no-commit-id --name-only -r $CI_COMMIT_SHA | grep '^src/.*\.lua$'))
+  - else git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+  - export FILES=($(git diff --name-only $CI_MERGE_REQUEST_TARGET_BRANCH_NAME...$CI_COMMIT_SHA | grep '^src/.*\.lua$'))
+  - fi
 
 download:
     stage: .pre
     script: 
-        - wget -q https://cdn.shosetsu.app/extension-tester/v1.1.0/extension-tester.jar -P $BIN/
+        - ./dev-setup.sh --tester
     cache:
       key: "$CI_COMMIT_REF_NAME"
       policy: push
@@ -34,33 +37,51 @@ download:
 index:
     stage: validate
     script:
-        - java -jar $BIN/extension-tester.jar --ci --validate-index
+        - java -jar bin/extension-tester.jar --ci --generate-index
+        - DELTA=$(git diff --minimal -- index.json)
+        - 'if [ ! -z "$DELTA" ]; then echo "Index file is not up to date: $DELTA"; exit 1; fi'
     cache:
       key: "$CI_COMMIT_REF_NAME"
       policy: pull
       paths:
         - bin
 
-.metadata:
+metadata:
     stage: validate
     script:
-        - java -jar $BIN/extension-tester.jar --ci --validate-metadata $FILES
+        - 'if [ ! -z "$FILES" ]; then java -jar bin/extension-tester.jar --ci --validate-metadata "${FILES[@]}"; fi'
     cache:
       key: "$CI_COMMIT_REF_NAME"
       policy: pull
       paths:
         - bin
     rules:
-      - if: $FILES != ""
+      - changes:
+          - "src/**/*.lua"
 
-.test:
+test:
     stage: test
     script:
-        - java -jar $BIN/extension-tester.jar --ci $FILES
+        - 'if [ ! -z "$FILES" ]; then java -jar bin/extension-tester.jar --ci "${FILES[@]}"; fi'
     cache:
       key: "$CI_COMMIT_REF_NAME"
       policy: pull
       paths:
         - bin
     rules:
-      - if: $FILES != ""
+      - changes:
+          - "src/**/*.lua"
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - cp -r src public/
+    - cp -r lib public/
+    - cp -r icons public/
+    - cp index.json public/
+  pages:
+    expire_in: 1 week
+  artifacts:
+    paths:
+      - public
