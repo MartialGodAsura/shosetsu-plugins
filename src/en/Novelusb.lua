@@ -1,4 +1,4 @@
--- {"id":95564,"ver":"1.0.8","libVer":"1.0.0","author":"Confident-hate"}
+-- {"id":95564,"ver":"1.0.9","libVer":"1.0.0","author":"Confident-hate"}
 
 local baseURL = "https://novelbin.com"
 
@@ -198,6 +198,13 @@ local function parseNovel(novelURL)
     -- for now, using novelin to get chapters.
     local chapterURL = "https://novelbin.com/ajax/chapter-archive?novelId=" .. chID
     local chapterDoc = GETDocument(chapterURL)
+
+    --remove Alternative names section from info
+    local first_li_element = document:selectFirst('.info > li')
+    if first_li_element and string.find(first_li_element:text(), "Alternative names") then
+        first_li_element:remove()
+    end
+
     return NovelInfo {
         title = document:selectFirst(".title"):text(),
         description = document:selectFirst(".desc-text"):text(),
