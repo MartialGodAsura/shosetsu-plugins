@@ -617,6 +617,16 @@
       "ver": "1.0.0",
       "libVer": "1.0.0",
       "md5": ""
+    },
+    {
+      "name": "Inkitt",
+      "fileName": "Inkitt",
+      "imageURL": "https://www.inkitt.com/1024_onblack-min.png",
+      "id": 96602,
+      "lang": "en",
+      "ver": "1.0.0",
+      "libVer": "1.0.0",
+      "md5": ""
     }
   ]
 }
