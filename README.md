@@ -31,7 +31,9 @@ A very generic how to:
 6. Start to develop the extension
    - You can use the following templates
      - [Lua Extension][lua-template]
-7. Make a PR of that branch into master
+   - Take a look at `./test-server.sh`. It should make testing a lot easier.
+7. Ensure the index is updated with the new extension (this is done automatically if you use `./test-server.sh`, otherwise you can run `java -jar bin/extension-tester.jar --generate-index`)
+8. Make a PR of that branch into master
 
 ### Icon creation
 
