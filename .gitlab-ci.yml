@@ -26,13 +26,15 @@ before_script:
 
 download:
     stage: .pre
-    script: 
+    script:
         - ./dev-setup.sh --tester
     cache:
       key: "$CI_COMMIT_REF_NAME"
       policy: push
       paths:
         - bin
+    rules:
+      - when: always
 
 index:
     stage: validate
@@ -45,6 +47,8 @@ index:
       policy: pull
       paths:
         - bin
+    rules:
+      - when: always
 
 metadata:
     stage: validate
@@ -85,3 +89,5 @@ pages:
   artifacts:
     paths:
       - public
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
