@@ -1,4 +1,4 @@
--- {"id":96601,"ver":"1.0.0","libVer":"1.0.0","author":"enhance7191"}
+-- {"id":96601,"ver":"1.0.1","libVer":"1.0.0","author":"enhance7191"}
 local json = Require("dkjson")
 local baseURL = "https://shanghaifantasy.com"
 
@@ -639,7 +639,7 @@ local function parseNovel(novelURL)
     local url = baseURL .. novelURL
     local document = GETDocument(url)
     local novelID = document:selectFirst("#chapterList"):attr("data-cat")
-    local chURL = baseURL .. "/wp-json/fiction/v1/chapters?category=" .. novelID .. "&order=asc&page=1&per_page=20"
+    local chURL = baseURL .. "/wp-json/fiction/v1/chapters?category=" .. novelID .. "&order=asc&page=1&per_page=9999"
     local chResponse = RequestDocument(GET(chURL, nil, nil))
 
     
