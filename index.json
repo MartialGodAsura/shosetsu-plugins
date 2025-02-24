@@ -78,6 +78,13 @@
       "website": ""
     },
     {
+      "id": 0,
+      "name": "",
+      "desc": "Worked on WTR-LAB",
+      "imageURL": "",
+      "website": ""
+    },
+    {
       "id": 1440041231,
       "name": "Ali Mohamed",
       "desc": "Worked on Rewayat Club - نادي الروايات",
@@ -692,6 +699,17 @@
       "ver": "1.0.0",
       "libVer": "1.0.0",
       "md5": "86fa82262dc43e5a20e4b3350e7d0f3f060c9a27b3af890fa597eb90c877d123",
+      "type": "LuaScript"
+    },
+    {
+      "id": 102555,
+      "name": "WTR-LAB",
+      "fileName": "wtr-lab",
+      "imageURL": "https://i.imgur.com/ObQtFVW.png",
+      "lang": "en",
+      "ver": "1.0.1",
+      "libVer": "1.0.0",
+      "md5": "b5329a058c836a9955eda57df241297d4c7dd86c8d92065fe6ab3d6cdb6f57f5",
       "type": "LuaScript"
     },
     {
