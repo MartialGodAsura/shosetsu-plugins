@@ -1,4 +1,4 @@
--- {"id":95564,"ver":"1.0.9","libVer":"1.0.0","author":"Confident-hate"}
+-- {"id":95564,"ver":"1.0.10","libVer":"1.0.0","author":"Confident-hate"}
 
 local baseURL = "https://novelbin.com"
 
@@ -216,22 +216,30 @@ local function parseNovel(novelURL)
         authors = { document:selectFirst(".info > li:nth-child(1)"):text() },
         genres = map(document:select(".info > li:nth-child(2) a"), text),
         chapters = AsList(
-            map(chapterDoc:select(".list-chapter li a"), function(v)
-                local titleElement = v:selectFirst(".nchr-text.chapter-title")
-                if titleElement then
-                    local premiumLabel = titleElement:selectFirst(".premium-label")
-                    if not premiumLabel then
-                        return NovelChapter {
-                            order = v,
-                            title = v:attr("title"),
-                            link = v:attr("href")
-                        }
+            filter(
+                map(chapterDoc:select(".list-chapter li a"), function(v)
+                    local titleElement = v:selectFirst(".nchr-text.chapter-title")
+                    if titleElement then
+                        local premiumLabel = titleElement:selectFirst(".premium-label")
+                        local paidLabel = titleElement:selectFirst(".paid-label")
+                        if not premiumLabel and not paidLabel then
+                            return NovelChapter {
+                                order = v,
+                                title = v:attr("title"),
+                                link = v:attr("href")
+                            }
+                        end
                     end
+                    return nil
+                end),
+                function(chapter)
+                    return chapter ~= nil
                 end
-            end)
+            )
         )
     }
 end
+
 
 local function parseListing(listingURL)
     local document = GETDocument(listingURL)
