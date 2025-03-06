@@ -1,4 +1,4 @@
--- {"id":102555,"ver":"1.0.1","libVer":"1.0.0","author":""}
+-- {"id":102555,"ver":"1.0.2","libVer":"1.0.0","author":""}
 
 local json = Require("dkjson")
 
@@ -117,10 +117,9 @@ local function parseNovel(novelURL)
     local chaplist = baseURL .. 'api/chapters' .. "/" .. serie.serie_data.raw_id.."?start=1&end=" .. endNum
     local chapdoc = GETDocument(chaplist)
     local chapterData = json.decode(chapdoc:selectFirst("body"):text())
-
     local novelInfo = NovelInfo {
         title = doc:selectFirst("h1.text-uppercase"):text(),
-        imageURL = doc:selectFirst(".img-wrap img"):attr("src"),
+        imageURL = doc:selectFirst("div.image-wrap img"):attr("src"),
         description = doc:selectFirst(".description"):text(),
         authors = {doc:select("td:matches(^Author$) + td a"):text()},
         status = ({
