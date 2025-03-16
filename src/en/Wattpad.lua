@@ -1,4 +1,4 @@
--- {"id":95556,"ver":"1.0.6","libVer":"1.0.0","author":"Confident-hate"}
+-- {"id":95556,"ver":"1.0.7","libVer":"1.0.0","author":"Confident-hate"}
 local json = Require("dkjson")
 local baseURL = "https://www.wattpad.com"
 
@@ -123,12 +123,12 @@ local function parseNovel(novelURL)
                     :build()
     )
     local description = ""
-    local isPaid = document:selectFirst(".MhigQ")
+    local isPaid = document:selectFirst("[data-testid=block-part-icon]")
     local description = ""
     if isPaid ~= nil then 
-        description = "!! 💰 Contains Paid Chapters !! \n" .. document:selectFirst(".qzqzr"):text()
+        description = "!! 💰 Contains Paid Chapters !! \n" .. document:selectFirst(".glL-c"):text()
     else
-        description = document:selectFirst(".qzqzr"):text()
+        description = document:selectFirst(".glL-c"):text()
     end
 
     local status = NovelStatus.UNKNOWN
@@ -139,16 +139,16 @@ local function parseNovel(novelURL)
     end
 
     local novel = NovelInfo {
-        title = document:selectFirst(".d2amY"):text(),
+        title = document:selectFirst(".gF-N5"):text(),
         description = description,
         imageURL = document:select(".cover__BlyZa"):attr("src"),
-        authors = { document:selectFirst(".o94Sz"):text() },
+        authors = { document:selectFirst(".af6dp"):text() },
         genres = map(document:select(".AMIOO a"), text ),
         status = status,
         chapters = AsList(
-                map(document:select(".NJXeo ul li"), function(v)
-                    local title = v:selectFirst("a"):text()
-                    if v:selectFirst('.MhigQ') then
+                map(document:select(".pPt69 .Y26Ib ul li"), function(v)
+                    local title = v:selectFirst("a div div"):text()
+                    if v:selectFirst("[data-testid=block-part-icon]") then
                         title = "🔒 ".. title
                     end
                     return NovelChapter {
