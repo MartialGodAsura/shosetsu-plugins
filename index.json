@@ -586,9 +586,9 @@
       "fileName": "Wattpad",
       "imageURL": "https://cdn-icons-png.flaticon.com/512/2111/2111715.png",
       "lang": "en",
-      "ver": "1.0.6",
+      "ver": "1.0.7",
       "libVer": "1.0.0",
-      "md5": "36d40aa9a4995cab4289fe75e004be27b0258720bb4708394bfd14b48faf675e",
+      "md5": "",
       "type": "LuaScript"
     },
     {
