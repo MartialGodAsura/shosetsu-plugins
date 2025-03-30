@@ -449,17 +449,6 @@
       "type": "LuaScript"
     },
     {
-      "id": 1783,
-      "name": "Asura Light Novel",
-      "fileName": "AsuraLightNovel",
-      "imageURL": "https://asuralightnovel.com/wp-content/uploads/2017/10/asura-light-novel-logo-4-e1627846850601.png",
-      "lang": "en",
-      "ver": "1.0.3",
-      "libVer": "1.0.0",
-      "md5": "d803a72fa888d9e87a3fce75a6d82a9f0b71baa026b9f17d764740984f731431",
-      "type": "LuaScript"
-    },
-    {
       "id": 2925,
       "name": "Light Novel Heaven",
       "fileName": "LightNovelHeaven",
