@@ -218,17 +218,6 @@
       "type": "LuaScript"
     },
     {
-      "id": 5,
-      "name": "BestLightNovel",
-      "fileName": "BestLightNovel",
-      "imageURL": "https://github.com/shosetsuorg/extensions/raw/dev/icons/BestLightNovel.png",
-      "lang": "en",
-      "ver": "2.0.2",
-      "libVer": "1.0.0",
-      "md5": "aeeae6db809b53172fe2e8bc339a6dbe6d2d612abd2767e7c88779dd8c168d55",
-      "type": "LuaScript"
-    },
-    {
       "id": 31,
       "name": "Light Novel Pub",
       "fileName": "LightNovelPub",
