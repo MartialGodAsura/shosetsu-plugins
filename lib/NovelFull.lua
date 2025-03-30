@@ -75,7 +75,7 @@ function defaults:parseNovel(url, loadChapters)
 		Completed = NovelStatus.COMPLETED
 	})[elem:get(meta_offset + 4):select("a"):text()] )
 
-	info:setImageURL((self.appendURLToInfoImage and self.baseURL or "") .. doc:selectFirst("div.book img"):attr("src"))
+	info:setImageURL((self.appendURLToInfoImage and self.baseURL or "") .. doc:selectFirst("div.book img"):attr("data-cfsrc"))
 	info:setDescription(table.concat(map(doc:select("div.desc-text p"), text), "\n"))
 
 	if loadChapters then
