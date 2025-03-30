@@ -553,9 +553,9 @@
       "fileName": "RoyalRoad",
       "imageURL": "https://github.com/shosetsuorg/extensions/raw/dev/icons/RoyalRoad.png",
       "lang": "en",
-      "ver": "1.0.15",
+      "ver": "1.0.16",
       "libVer": "1.0.0",
-      "md5": "ebad2730e9e94fa2c807871e4f115a4150d3b0209b06e6f1a2c0c8b24d85f2bc",
+      "md5": "",
       "type": "LuaScript"
     },
     {
