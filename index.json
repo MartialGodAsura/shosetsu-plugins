@@ -10,7 +10,7 @@
     {
       "id": -821183208,
       "name": "TechnoJo4",
-      "desc": "Worked on 247truyen, BestLightNovel, CommonCSS, Creative Novels, Foxaholic, Kemono, Madara, NovelFull, RoyalRoad, ScribbleHub, WWVolare, url",
+      "desc": "Worked on 247truyen, CommonCSS, Creative Novels, Foxaholic, Kemono, Madara, NovelFull, RoyalRoad, ScribbleHub, WWVolare, url",
       "imageURL": "",
       "website": ""
     },
@@ -60,13 +60,6 @@
       "id": 1426213634,
       "name": "Claudemirovsky",
       "desc": "Worked on Central Novel, Novel Mania",
-      "imageURL": "",
-      "website": ""
-    },
-    {
-      "id": -621820381,
-      "name": "Xanvial",
-      "desc": "Worked on Asura Light Novel, Novel Nb",
       "imageURL": "",
       "website": ""
     },
@@ -125,6 +118,13 @@
       "desc": "Worked on ScribbleHub",
       "imageURL": "",
       "website": ""
+    },
+    {
+      "id": -621820381,
+      "name": "Xanvial",
+      "desc": "Worked on Novel Nb",
+      "imageURL": "",
+      "website": ""
     }
   ],
   "libraries": [
@@ -148,9 +148,9 @@
     },
     {
       "name": "NovelFull",
-      "ver": "2.0.7",
+      "ver": "2.0.6",
       "url": null,
-      "hash": "3f92488c9285e84bf5416fcf4539a008e6b2ca123711a408be2bd39fe69e05ab"
+      "hash": "84f4fd7edfd462ff7bea853a139eb0312767de0e83fca4e68bbdb98a0b052b38"
     },
     {
       "name": "WWVolare",
@@ -533,7 +533,7 @@
       "lang": "en",
       "ver": "1.0.16",
       "libVer": "1.0.0",
-      "md5": "",
+      "md5": "a6e2ab1f31bc890e11b6566ce417916dbad08abbb2ae0a5dd1f320aa0bcbbb79",
       "type": "LuaScript"
     },
     {
