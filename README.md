@@ -35,6 +35,18 @@ A very generic how to:
 7. Ensure the index is updated with the new extension (this is done automatically if you use `./test-server.sh`, otherwise you can run `java -jar bin/extension-tester.jar --generate-index`)
 8. Make a PR of that branch into master
 
+### Commit Message style
+
+Please follow the [Conventional Commits][cc] standard.
+
+Here are some sample commit headers:
+
+1. `feat: Add site.url`
+2. `feat(extension-file-name): Add new filters`
+3. `fix(extension-file-name): Resolve novel parsing bug`
+4. `misc(extension-file-name): Update extension icon`
+5. `fix(index): Correct extension-file-name data`
+
 ### Icon creation
 
 Unique Icons can be created for each extension. 
@@ -47,3 +59,4 @@ Please ensure the source of the icons are present, so they can be edited later o
 [source-request]: https://gitlab.com/shosetsuorg/extensions/-/issues/new?issuable_template=source_request
 [bug-report]: https://gitlab.com/shosetsuorg/extensions/-/issues/new?issuable_template=bug_report
 [issues]: https://gitlab.com/shosetsuorg/extensions/-/issues
+[cc]: https://www.conventionalcommits.org/en/v1.0.0/
