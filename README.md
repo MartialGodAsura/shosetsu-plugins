@@ -37,7 +37,7 @@ A very generic how to:
 
 ### Commit Message style
 
-Please follow the [Conventional Commits][cc] standard.
+If you have the time and ability, I recommend following the [Conventional Commits][cc] standard.
 
 Here are some sample commit headers:
 
