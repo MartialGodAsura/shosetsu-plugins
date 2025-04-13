@@ -1,4 +1,4 @@
--- {"id":1234567890,"ver":"1.0.0","libVer":"1.0.0","author":"YourName","name":"Cliche Novel","lang":"en","url":"https://clichenovel.com"}
+-- {"id":999999999,"ver":"1.0.0","libVer":"1.0.0","author":"You","name":"Cliche Novel","lang":"en","url":"https://clichenovel.com"}
 
 require("WordPress")
 
@@ -11,25 +11,23 @@ end
 
 function GetInfo()
     info.Title = dom.SelectValue("h1.entry-title")
-    info.Author = dom.SelectValue("span:contains(Author) + span")
-    info.Tags = dom.SelectValues("span:contains(Genre) + span a")
-    info.Status = dom.SelectValue("span:contains(Status) + span")
-    info.Description = dom.SelectValue(".entry-content p")
+    info.Author = dom.SelectValue(".author-content a")
+    info.Tags = dom.SelectValues(".genres-content a")
+    info.Status = dom.SelectValue(".post-status span:contains(Status) + span")
+    info.Description = dom.SelectValue(".description-summary .summary__content")
 end
 
 function GetChapters()
     for chapter in dom.SelectElements(".wp-manga-chapter a") do
-        local chapterUrl = chapter.SelectValue("@href")
-        local chapterTitle = chapter.SelectValue("text()")
-        chapters.Add(chapterUrl, chapterTitle)
+        local url = chapter.SelectValue("@href")
+        local title = chapter.SelectValue("text()")
+        chapters.Add(url, title)
     end
     chapters.Reverse()
 end
 
 function GetContent()
-    content.Remove(".code-block") -- remove ads/code blocks
     content.Remove("script")
-    content.Exclude("div")
-    content.Exclude("p:contains(Translator)")
-    return dom.SelectValue(".text-left")
+    content.Remove(".code-block")
+    return dom.SelectValue(".text-left, .reading-content")
 end
